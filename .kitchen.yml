@@ -1,0 +1,33 @@
+---
+driver:
+  name: ec2
+  aws_ssh_key_id: packer-test
+  region: us-west-1
+
+transport:
+  ssh_key: ~/.ssh/packer-test
+  username: ubuntu
+  connection_retries: 5
+
+platforms:
+  - name: ubuntu_puppet
+    driver:
+      image_id: ami-23024843 
+
+provisioner:
+  name: puppet_apply
+  manifests_path: spec/manifests
+  modules_path: modules
+  resolve_with_librarian_puppet: false
+  http_proxy: ''
+  https_proxy: ''
+
+suites:
+  - name: default
+    provisioner: 
+      manifest: default.pp
+    attributes:
+      chef-client:
+        config:  
+          http_proxy: ''
+          https_proxy: ''
