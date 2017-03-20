@@ -1,0 +1,4 @@
+.gitignore
+.kitchen
+chefignore
+manifests/.kitchen
